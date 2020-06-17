@@ -1,0 +1,31 @@
+<html>
+    <title>
+        Tweet Fetcher
+    </title>
+
+    <body>
+        <h1>welcome to tweet fetcher</h1>
+        <form>
+            Enter text:
+            <input type="text" id="query" required>
+            <br>
+            Enter number of tweets (1-100):
+            <input type="number" min="1" max="100" id="count" required>
+            <br>
+            <button id="search-btn" type="submit">Go</button>
+        </form>
+    </body>
+
+    <script>
+        document.querySelector("#search-btn").addEventListener("click", (e) => {
+            
+            console.log("clicked")
+            e.preventDefault()
+    
+            const query = document.querySelector("#query").value
+            const count = document.querySelector("#count").value
+    
+            location.replace(`/getTweet?query=${query}&count=${count}`)
+        })
+    </script>
+</html>
