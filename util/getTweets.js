@@ -2,7 +2,6 @@ const axios = require("axios");
 
 async function getTweets(query, count) {
     
-    console.log("getTweets called");
     const encodedQuery = encodeURIComponent(query);
 
     const config = {
@@ -16,8 +15,6 @@ async function getTweets(query, count) {
     };
 
     const res = await axios(config);
-
-    console.log("response recivied")
     const tweets = res.data.statuses;
 
     let filteredData = [];
