@@ -22,7 +22,7 @@
             console.log("clicked")
             e.preventDefault()
     
-            const query = document.querySelector("#query").value
+            const query = encodeURIComponent(document.querySelector("#query").value)
             const count = document.querySelector("#count").value
     
             location.replace(`/getTweet?query=${query}&count=${count}`)
