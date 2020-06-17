@@ -10,7 +10,7 @@ app.get('/getTweet', async (req, res) => {
     const query = req.query.query
     const count = req.query.count
 
-    console.log(query, count)
+    console.log("Request: ", query, count)
     
     const data = await getTweetsAsync(query, count)
     res.send(data)
