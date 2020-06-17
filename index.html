@@ -24,6 +24,8 @@
     
             const query = encodeURIComponent(document.querySelector("#query").value)
             const count = document.querySelector("#count").value
+
+            console.log(count)
     
             location.href = `/getTweet?query=${query}&count=${count}`
         })
