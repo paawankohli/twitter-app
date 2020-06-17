@@ -9,10 +9,16 @@
             Enter text:
             <input type="text" id="query" minlength="1" required>
             <br>
-            Enter number of tweets (1-100):
-            <input type="number" min="1" max="100" id="count" required>
+            Enter number of tweets (1-100000):
+            <input type="number" min="1" max="100000" id="count" required>
             <br>
             <button id="search-btn" type="submit">Go</button>
+
+            <div>
+                <h3 id="info">
+                    Takes approx 1 sec for 100 records.
+                </h3>
+            </div>
         </form>
     </body>
 
@@ -23,7 +29,17 @@
     
             const query = encodeURIComponent(document.querySelector("#query").value)
             const count = document.querySelector("#count").value
-    
+
+            const eta = count / 100
+            let str = `<br>`
+
+            if (eta <= 60)
+                str += `ETA is ${eta.toFixed(2)} secs.`
+            else
+                str += `ETA is ${(eta / 60).toFixed(2)} mins.`
+
+            document.querySelector("#info").innerHTML += str
+            
             location.href = `/getTweet?query=${query}&count=${count}`
         })
     </script>

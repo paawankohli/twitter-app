@@ -1,33 +1,44 @@
 const axios = require("axios");
 
-async function getTweets(query, count) {
+async function getTweets(query, count) {        
+    let tweets = []
+    const encodedQuery = encodeURIComponent(query)
+    const endpoint = `https://api.twitter.com/1.1/search/tweets.json`
     
-    const encodedQuery = encodeURIComponent(query);
+    let params = `?include_entities=0` + `&count=${count}` + `&q=%23${encodedQuery}`
 
-    const config = {
-        method: "get",
-        url: `https://api.twitter.com/1.1/search/tweets.json?q=%23${encodedQuery}&count=${count}`,
-        headers: {
-            Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
-            Cookie:
-                'personalization_id="v1_XHkEAUvtuhkJoAGrYd2duA=="; guest_id=v1%3A159237933438839587',
-        },
-    };
+    do {
+        console.log("query: " + params)
+        const url = endpoint + params
 
-    const res = await axios(config);
-    const tweets = res.data.statuses;
+        let config = {
+            method: "get",
+            url: url,
+            headers: {
+                Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+                Cookie: 'personalization_id="v1_XHkEAUvtuhkJoAGrYd2duA=="; guest_id=v1%3A159237933438839587'
+            }
+        }
+    
+        let res = await axios(config)
+        tweets = tweets.concat(res.data.statuses)
+        count = count - 100
+        params = res.data.search_metadata.next_results.replace(`?max`, `?include_entities=0&count=${count}&max`)
+   
+    } while (count > 0 )
 
-    let filteredData = [];
+    let filteredData = []
 
     tweets.forEach((tweet) => {
         let obj = {
             created_at: tweet.created_at,
-            text: tweet.text,
-        };
-        filteredData.push(obj);
-    });
+            text: tweet.text
+        }
+        filteredData.push(obj)
+    })
 
-    return filteredData;
+    // console.log(filteredData)
+    return filteredData
 }
 
-module.exports = getTweets;
+module.exports = getTweets

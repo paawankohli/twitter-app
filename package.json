@@ -5,7 +5,8 @@
   "main": "script.js",
   "scripts": {
     "free-port": "sudo kill -9 $(sudo lsof -t -i:3000)",
-    "start": "node app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js -e html,js"
   },
   "keywords": [],
   "author": "",
