@@ -29,7 +29,7 @@ async function getTweets(query, count) {
 
     let filteredData = []
 
-    tweets.forEach((tweet) => {
+    tweets.forEach(tweet => {
         let obj = {
             created_at: tweet.created_at,
             text: tweet.text
