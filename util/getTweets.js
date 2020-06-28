@@ -23,6 +23,11 @@ async function getTweets(query, count) {
         let res = await axios(config)
         tweets = tweets.concat(res.data.statuses)
         count = count - 100
+
+        if (res.data.search_metadata.next_results === undefined) {
+            break
+        }
+        
         params = res.data.search_metadata.next_results.replace(`?max`, `?include_entities=0&count=${count}&max`)
    
     } while (count > 0 )
